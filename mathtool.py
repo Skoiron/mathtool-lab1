@@ -41,6 +41,11 @@ try:
 except ValueError:
     print("ОШИБКА: коэффициент не является целым числом", file=sys.stderr)
     sys.exit(1)
+    
+
+if abs(A) > MAX_VALUE or abs(B) > MAX_VALUE or abs(C) > MAX_VALUE:
+    print("ОШИБКА: значение вне допустимого диапазона", file=sys.stderr)
+    sys.exit(1)
 
 if A == 0:
     if B != 0:
