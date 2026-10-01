@@ -3,7 +3,8 @@ import math
 
 MAX_VALUE = 10000
 
-def print_help():
+# 1. Разбор параметров командной строки
+if len(sys.argv) == 1 or sys.argv[1] == "--help":
     print("mathtool — решение уравнений вида A*x^2 + B*x + C = 0")
     print()
     print("Использование:")
@@ -13,16 +14,13 @@ def print_help():
     print("    python mathtool.py solve -a 1 -b -3 -c 2   решение с заданными коэффициентами")
     print()
     print("Коэффициенты A, B, C — целые числа, по модулю не превышающие 10000.")
-
-# 1. Разбор параметров командной строки
-if len(sys.argv) == 1 or sys.argv[1] == "--help":
-    print_help()
     sys.exit(0)
 
 if sys.argv[1] != "solve":
     print("ОШИБКА: неизвестная команда", file=sys.stderr)
     sys.exit(1)
 
+# 2. Получение и преобразование исходных данных
 try:
     if len(sys.argv) == 2:
         A = int(input("Введите A: "))
@@ -41,12 +39,13 @@ try:
 except ValueError:
     print("ОШИБКА: коэффициент не является целым числом", file=sys.stderr)
     sys.exit(1)
-    
 
+# 3. Проверка значений на соответствие ограничениям
 if abs(A) > MAX_VALUE or abs(B) > MAX_VALUE or abs(C) > MAX_VALUE:
     print("ОШИБКА: значение вне допустимого диапазона", file=sys.stderr)
     sys.exit(1)
 
+# 4. Решение уравнения и вывод результата
 if A == 0:
     if B != 0:
         print("Уравнение линейное")
@@ -69,8 +68,3 @@ else:
         print(f"x = {x:.3f}")
     else:
         print("Действительных корней нет")
-
-if abs(A) > MAX_VALUE or abs(B) > MAX_VALUE or abs(C) > MAX_VALUE:
-    print("ОШИБКА: значение вне допустимого диапазона", file=sys.stderr)
-    sys.exit(1)
-
