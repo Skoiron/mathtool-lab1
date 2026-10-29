@@ -1,7 +1,11 @@
 import sys
 import math
 
-MAX_VALUE = 10000
+MAX_VALUE = -500
+
+if MAX_VALUE < 0:
+    MAX_VALUE *= -1
+
 
 # 1. Разбор параметров командной строки
 if len(sys.argv) == 1 or sys.argv[1] == "--help":
@@ -13,7 +17,7 @@ if len(sys.argv) == 1 or sys.argv[1] == "--help":
     print("    python mathtool.py solve                   ввод коэффициентов с клавиатуры")
     print("    python mathtool.py solve -a 1 -b -3 -c 2   решение с заданными коэффициентами")
     print()
-    print("Коэффициенты A, B, C — целые числа, по модулю не превышающие 10000.")
+    print(f'"Коэффициенты A, B, C — целые числа, по модулю не превышающие {MAX_VALUE}."')
     sys.exit(0)
 
 if sys.argv[1] != "solve":
@@ -23,16 +27,16 @@ if sys.argv[1] != "solve":
 # 2. Получение и преобразование исходных данных
 try:
     if len(sys.argv) == 2:
-        A = int(input("Введите A: "))
-        B = int(input("Введите B: "))
-        C = int(input("Введите C: "))
+        A = float(input("Введите A: "))
+        B = float(input("Введите B: "))
+        C = float(input("Введите C: "))
     elif len(sys.argv) == 8:
         if sys.argv[2] != "-a" or sys.argv[4] != "-b" or sys.argv[6] != "-c":
             print("ОШИБКА: неизвестный параметр", file=sys.stderr)
             sys.exit(1)
-        A = int(sys.argv[3])
-        B = int(sys.argv[5])
-        C = int(sys.argv[7])
+        A = float(sys.argv[3])
+        B = float(sys.argv[5])
+        C = float(sys.argv[7])
     else:
         print("ОШИБКА: неверный набор параметров", file=sys.stderr)
         sys.exit(1)
@@ -51,6 +55,7 @@ if A == 0:
         print("Уравнение линейное")
         x = -C / B
         print(f"x = {x:.3f}")
+
     else:
         print("ОШИБКА: это не уравнение, неизвестное отсутствует", file=sys.stderr)
         sys.exit(1)
